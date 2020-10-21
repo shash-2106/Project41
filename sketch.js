@@ -12,6 +12,8 @@ var maxDrops = 100;
 
 var drops = [];
 
+var f;
+
 
 function preload()
 {
@@ -24,32 +26,17 @@ light4 = loadImage("images/thunderbolt/4.png");
 function setup() {
     createCanvas(800, 1600);
     
-    lightning = createSprite(400,400);
-    rand = Math.round(random(1,4));
-
-    switch(rand){
-        case 1 :
-            lightning.addImage(light1);
-            break;
-            case 2 :
-                lightning.addImage(light2);
-                break;
-                case 3 :
-                    lightning.addImage(light3);
-                    break;
-                    case 4 :
-                        lightning.addImage(light4);
-    }
-
-	engine = Engine.create();
-	world = engine.world;	
-	
-    umbrella = new Umbrella(400,1225,2);	
+    engine = Engine.create();
+    world = engine.world;	
     
-    for(var i = 0; i < maxDrops; i++){
-        drops.push(new Drop(random(0,800),random(0,800),5));
-    }
+      umbrella = new Umbrella(400,1225,2);	
+      
+      for(var i = 0; i < maxDrops; i++){
+          drops.push(new Drop(random(0,800),random(0,800),5));
+      }
+  
 
+  
 	Engine.run(engine);
   
 }
@@ -58,6 +45,38 @@ function setup() {
 function draw() {
  
   background("black");
+  if(frameCount % 100 === 0){
+    f = frameCount;
+
+    lightning = createSprite(400,400);
+    
+    rand = Math.round(random(1,4));
+
+  
+    switch(rand){
+       case 1 :
+           lightning.addImage(light1);
+           break;
+           case 2 :
+               lightning.addImage(light2);
+               break;
+               case 3 :
+                   lightning.addImage(light3);
+                   break;
+                   case 4 :
+                       lightning.addImage(light4);
+   }
+
+    
+   }
+   if(f + 10 == 0){
+     lightning.destroy();
+   }
+   
+   
+
+
+
   
   drawSprites();
   umbrella.display();
